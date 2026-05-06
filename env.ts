@@ -7,6 +7,8 @@ const configSchema = z.object({
   PG_HOST: z.string().min(1),
   PG_PORT: z.coerce.number().int().positive(),
   PG_DB: z.string().min(1),
+  PORT: z.coerce.number().int().positive(),
+  HOST: z.string().min(1),
 });
 
 type Config = z.infer<typeof configSchema>;
