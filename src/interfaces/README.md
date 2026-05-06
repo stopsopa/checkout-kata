@@ -1,0 +1,1 @@
+Universal set of interfaces for any type of implementation
