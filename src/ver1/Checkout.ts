@@ -1,5 +1,4 @@
 import type { ICheckout } from "../interfaces/iCheckout.ts";
-import type IRuleFinder from "../interfaces/iRuleFinder.ts";
 import RuleFinder from "./RuleFinder.ts";
 import Ver1Rule from "./Ver1Rule.ts";
 
