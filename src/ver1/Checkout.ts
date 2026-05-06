@@ -13,7 +13,10 @@ export default class Checkout implements ICheckout<string, number> {
    * but anyway the type and number of parameters requred by constructor are not envorced
    * on the ICheckout interface to give more flexibility to any other implementation of checkout
    */
-  constructor(private ruleFinder: RuleFinder) {}
+  private ruleFinder: RuleFinder;
+  constructor(ruleFinder: RuleFinder) {
+    this.ruleFinder = ruleFinder;
+  }
 
   scan(item: string): void {
     this.items.push(item);
