@@ -6,7 +6,7 @@ export default class RuleFinder implements IRuleFinder<Ver1Rule, string> {
   constructor(rules: Ver1Rule[]) {
     this.rules = rules;
   }
-  findRules(uniqueItems: string[]): Ver1Rule[] {
+  async findRules(uniqueItems: string[]): Promise<Ver1Rule[]> {
     return this.rules.filter((rule) => uniqueItems.includes(rule.sku));
   }
 }

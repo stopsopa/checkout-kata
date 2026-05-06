@@ -1,6 +1,9 @@
 import type { ICheckout } from "../interfaces/iCheckout.ts";
 import RuleFinder from "./RuleFinder.ts";
-import Ver1Rule from "./Ver1Rule.ts";
+
+import { schema } from "../../database/db.ts";
+
+type RuleType = typeof schema.rules.$inferSelect;
 
 export default class Checkout implements ICheckout<string, number> {
   protected items: string[] = [];
@@ -28,7 +31,7 @@ export default class Checkout implements ICheckout<string, number> {
 
     return this.calculateTotalPrice(this.items, rules);
   }
-  protected calculateTotalPrice(items: string[], rules: Ver1Rule[]): number {
+  protected calculateTotalPrice(items: string[], rules: RuleType[]): number {
     /**
      * counts repeating items in the basket - by type of item
      */
