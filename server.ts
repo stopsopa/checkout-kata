@@ -8,6 +8,13 @@ import serveIndex from "serve-index";
 
 import { fileURLToPath } from "url";
 
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
+import { DatabaseContext } from "./database/context";
+import * as schema from "./database/schema";
+const client = postgres(process.env.DATABASE_URL!);
+const db = drizzle(client, { schema });
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -26,6 +33,8 @@ const app: Application = express();
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
+
+app.use((req, res, next) => DatabaseContext.run(db, next));
 
 app.use(
   express.static(web, {
