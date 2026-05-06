@@ -2,7 +2,7 @@ import type { ICheckout } from "../interfaces/iCheckout.ts";
 import type IRuleFinder from "../interfaces/iRuleFinder.ts";
 import Ver1Rule from "./Ver1Rule.ts";
 
-export default class Checkout implements ICheckout<string> {
+export default class Checkout implements ICheckout<string, number> {
   /**
    * Types for IRuleFinder - are fixed on this level for this implementation of checkout
    * But generally IRuleFinder is universal for any shape of rule searching criteria
@@ -17,7 +17,7 @@ export default class Checkout implements ICheckout<string> {
     throw new Error("Method 'scan' not implemented.");
   }
 
-  getTotalPrice(): number {
+  async getTotalPrice(): Promise<number> {
     throw new Error("Method 'getTotalPrice' not implemented.");
   }
 }

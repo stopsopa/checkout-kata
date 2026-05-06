@@ -1,6 +1,6 @@
 import type IRuleFinder from "./iRuleFinder.ts";
 
-export interface ICheckout<ItemType> {
+export interface ICheckout<ItemType, PriceType> {
   scan(item: ItemType): void;
-  getTotalPrice(): number;
+  getTotalPrice(): Promise<PriceType>;
 }
