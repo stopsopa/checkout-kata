@@ -6,6 +6,6 @@
   "testRunner": {
     "experimental-test-coverage": true,
     "test-coverage-lines": 80,
-    "test-coverage-exclude": ["bootstrap/node-suppress-warning.js", "bootstrap/ts-resolver.js"]
+    "test-coverage-exclude": ["bootstrap/**/*"]
   }
 }

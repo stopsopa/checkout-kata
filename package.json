@@ -11,6 +11,7 @@
     "tests": "/bin/bash ts.sh --test",
     "style:check": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --check .",
     "style:fix": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --write .",
-    "style:list": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --list-different ."
+    "style:list": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --list-different .",
+    "coverage:server": "/bin/bash bash/coverage.sh"
   }
 }
