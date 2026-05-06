@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "c8": "^11.0.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "typecheck": "NODE_OPTIONS= npx tsc -p tsconfig.json",
+    "tests": "/bin/bash ts.sh --test",
+    "style:check": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --check .",
+    "style:fix": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --write .",
+    "style:list": "NODE_OPTIONS='' npx prettier --config prettier.config.cjs --list-different ."
+  }
+}
