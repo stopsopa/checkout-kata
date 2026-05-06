@@ -2,8 +2,7 @@ import { defineConfig } from "drizzle-kit";
 
 import env from "./env";
 
-const DATABASE_URL =
-  env.DATABASE_URL || `postgres://${env.PG_USER}:${env.PG_PASS}@${env.PG_HOST}:${env.PG_PORT}/${env.PG_DB}`;
+const { DATABASE_URL } = env;
 
 const url = new URL(DATABASE_URL);
 

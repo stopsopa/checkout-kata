@@ -19,6 +19,7 @@
     "server": "node --env-file .env --watch server.ts",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config drizzle.config.ts",
+    "db:fixtures": "/bin/bash ts.sh database/fixtures.ts",
     "docker:up": "/bin/bash docker/docker-compose.sh up",
     "docker:down": "/bin/bash docker/docker-compose.sh down"
   },

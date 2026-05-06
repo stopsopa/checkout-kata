@@ -2,7 +2,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # add --watch flag for dev mode
 
-# source "${DIR}/.env.sh"
+source "${DIR}/.env.sh"
 
 set -e
 
