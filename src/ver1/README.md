@@ -4,3 +4,9 @@ It's not really usable implementation because I assume more realistic scenario w
 and I assume we wouldn't load them all into server memory.
 
 So it would be good to delegate at least the part of rules elimination logic to database.
+
+```
+
+/bin/bash ts.sh --test src/ver1/ver1.test.ts
+
+```

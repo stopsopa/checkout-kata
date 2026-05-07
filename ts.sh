@@ -1,3 +1,15 @@
+# 
+# This is generally shell wrapper on top of typescript compilation, testing, coverage
+# To run any typescript just run:
+# /bin/bash ts.sh <script_to_run>
+#
+# There is few one can turn on and off by setting environment variable before running:
+# - CHECK=false - turn of typechecking
+# - SILENT=true - make typescript typechecking to print to the screen only if it fails
+# 
+# when --test parameter is passed then entire script is enriched with setup to generate code coverage
+# 
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # add --watch flag for dev mode

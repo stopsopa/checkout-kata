@@ -1,9 +1,7 @@
 
-# script is here to assist running docker/podman compose with mysql and pma
-# in addition to just spinning those containers it also wait for 'healthy' state of mysql container
-# and set proper privileges for external connectivity
-# and created database defined in MYSQL_DB env var
-# it is also packed with checking that all necessary environments are present
+#
+# script is here to assist running docker/podman compose and run all env var validation before
+#
 
 _SHELL="$(ps "${$}" | grep "${$} " | grep -v grep | sed -rn "s/.*[-\/]+(bash|z?sh) .*/\1/p")"; # bash || sh || zsh
 case ${_SHELL} in
@@ -60,24 +58,24 @@ if [ "${1}" = "up" ]; then
 
     ${_DOCKER} ps | grep "${PROJECT_NAME}"
 
-    # CONTAINER="${PROJECT_NAME}_pgadmin"
+#     CONTAINER="${PROJECT_NAME}_pgadmin"
 
-    # printf "Waiting for pgAdmin to be ready: ";
-    # until [ "$(${_DOCKER} inspect -f '{{.State.Health.Status}}' ${CONTAINER})" = "healthy" ]; do
-    #     printf "."
-    #     sleep 2;
-    # done;
-    # echo " Ready!"
+#     printf "Waiting for pgAdmin to be ready: ";
+#     until [ "$(${_DOCKER} inspect -f '{{.State.Health.Status}}' ${CONTAINER})" = "healthy" ]; do
+#         printf "."
+#         sleep 2;
+#     done;
+#     echo " Ready!"
 
-cat << EOF
+# cat << EOF
 
-  all good
+#   all good
 
-  visit:
+#   visit:
 
-    pgAdmin (Postgres): http://0.0.0.0:${PGA_PMADB_PORT}
+#     pgAdmin (Postgres): http://0.0.0.0:${PGA_PMADB_PORT}
 
-EOF
+# EOF
 
     exit 0;
 fi
@@ -94,11 +92,7 @@ fi
 
 cat << EOF
 
-# script is here to assist running docker compose with mysql and pma
-# in addition to just spinning those containers it also wait for 'healthy' state of mysql container
-# and set proper privileges for external connectivity
-# and created database defined in MYSQL_DB env var
-# it is also packed with checking that all necessary environments are present
+# script is here to assist running docker/podman compose and run all env var validation before
 
   # to run container
   /bin/bash ${0} up
