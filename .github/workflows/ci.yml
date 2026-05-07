@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Node version from .tool-versions
+        id: node-version
+        run: echo "version=$(grep nodejs .tool-versions | awk '{print $2}' | sed 's/v//')" >> $GITHUB_OUTPUT
+
+      - name: Use Node.js ${{ steps.node-version.outputs.version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run docker-compose
+        run: /bin/bash docker/docker-compose.sh up
+
+      - name: Wait for database to be healthy
+        run: /bin/bash ts.sh .github/db-healthy.ts 10
+
+      - name: Run migrations
+        run: npm run db:migrate
+
+      - name: Load fixtures
+        run: npm run db:fixtures
+
+      - name: Run tests
+        run: /bin/bash ts.sh --test
+
+      - name: Cleanup
+        if: always()
+        run: |
+          /bin/bash docker/docker-compose.sh down
+          /bin/bash .github/clean.sh
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the root directory
+          # node_modules and .git are automatically excluded by the action
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
