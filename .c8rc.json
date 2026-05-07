@@ -1,8 +1,5 @@
 {
   "all": true,
   "include": ["src/**", "database/**"],
-  "exclude": [
-    "bootstrap/**",
-    "**/*.test.*"
-  ]
+  "exclude": ["bootstrap/**", "**/*.test.*"]
 }
