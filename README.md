@@ -1,3 +1,7 @@
+# Original challenge
+
+https://github.com/brightsg/checkout-kata
+
 # Requirements
 
 - node version [.nvmrc](./.nvmrc)
