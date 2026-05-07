@@ -1,14 +1,9 @@
 import type { ICheckout } from "./iCheckout.ts";
 
-export interface IBaseRule {
-  sku: string;
-  countActivator: number;
-  price: number | string;
-}
-
-export default abstract class AbstractCheckout<ItemType, PriceType, RuleType>
-  implements ICheckout<ItemType, PriceType>
-{
+export default abstract class AbstractCheckout<ItemType, PriceType, RuleType> implements ICheckout<
+  ItemType,
+  PriceType
+> {
   protected items: ItemType[] = [];
 
   protected abstract findRules(uniqueItems: ItemType[]): Promise<RuleType[]>;
