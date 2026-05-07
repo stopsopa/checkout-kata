@@ -11,4 +11,3 @@ export default class Ver1Rule {
     }
   }
 }
-

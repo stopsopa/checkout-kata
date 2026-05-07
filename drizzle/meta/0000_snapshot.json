@@ -47,10 +47,7 @@
         "rules_sku_count_activator_unique": {
           "name": "rules_sku_count_activator_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "sku",
-            "count_activator"
-          ]
+          "columns": ["sku", "count_activator"]
         }
       },
       "policies": {},

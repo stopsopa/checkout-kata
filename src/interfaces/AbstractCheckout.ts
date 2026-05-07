@@ -7,9 +7,11 @@ export interface IBaseRule {
   price: number | string;
 }
 
-export default abstract class AbstractCheckout<ItemType extends string, PriceType extends number, RuleType extends IBaseRule>
-  implements ICheckout<ItemType, PriceType>
-{
+export default abstract class AbstractCheckout<
+  ItemType extends string,
+  PriceType extends number,
+  RuleType extends IBaseRule,
+> implements ICheckout<ItemType, PriceType> {
   protected items: ItemType[] = [];
 
   protected ruleFinder: IRuleFinder<RuleType, ItemType>;
