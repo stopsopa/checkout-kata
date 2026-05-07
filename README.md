@@ -7,6 +7,8 @@ https://github.com/brightsg/checkout-kata
 - node version [.nvmrc](./.nvmrc)
 - docker or podman
 
+Link to code coverage: https://stopsopa.github.io/checkout-kata/coverage/
+
 # Description
 
 There are two implementations of checkout process:
