@@ -1,5 +1,4 @@
 import type { ICheckout } from "./iCheckout.ts";
-import type IRuleFinder from "./iRuleFinder.ts";
 
 export interface IBaseRule {
   sku: string;
@@ -14,11 +13,7 @@ export default abstract class AbstractCheckout<
 > implements ICheckout<ItemType, PriceType> {
   protected items: ItemType[] = [];
 
-  protected ruleFinder: IRuleFinder<RuleType, ItemType>;
-
-  constructor(ruleFinder: IRuleFinder<RuleType, ItemType>) {
-    this.ruleFinder = ruleFinder;
-  }
+  protected abstract findRules(uniqueItems: ItemType[]): Promise<RuleType[]>;
 
   scan(item: ItemType): void {
     this.items.push(item);
@@ -27,7 +22,7 @@ export default abstract class AbstractCheckout<
   async getTotalPrice(): Promise<PriceType> {
     const uniqueItems = [...new Set(this.items)];
 
-    const rules = await this.ruleFinder.findRules(uniqueItems);
+    const rules = await this.findRules(uniqueItems);
 
     return this.calculateTotalPrice(this.items, rules) as PriceType;
   }

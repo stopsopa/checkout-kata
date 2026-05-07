@@ -1,7 +1,6 @@
 import { test, after } from "node:test";
 import assert from "node:assert";
 import Checkout from "./Checkout.ts";
-import RuleFinder from "./RuleFinder.ts";
 
 import { client } from "../../database/db.ts";
 
@@ -17,9 +16,7 @@ function checkoutFactory(): Checkout {
   // | D    | 15         |               |
   // WARNING: but this time defined in database: database/fixtures.ts
 
-  const ruleFinder = new RuleFinder();
-
-  return new Checkout(ruleFinder);
+  return new Checkout();
 }
 
 after(async () => {

@@ -1,7 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
 import Checkout from "./Checkout.ts";
-import RuleFinder from "./RuleFinder.ts";
 import Ver1Rule from "./Ver1Rule.ts";
 
 /**
@@ -16,7 +15,7 @@ function checkoutFactory(): Checkout {
   // | C    | 20         |               |
   // | D    | 15         |               |
 
-  const ruleFinder = new RuleFinder([
+  const rules = [
     new Ver1Rule("A", 50, 1),
     new Ver1Rule("A", 130, 3),
 
@@ -25,9 +24,9 @@ function checkoutFactory(): Checkout {
 
     new Ver1Rule("C", 20, 1),
     new Ver1Rule("D", 15, 1),
-  ]);
+  ];
 
-  return new Checkout(ruleFinder);
+  return new Checkout(rules);
 }
 
 test('price("") should be 0', async () => {

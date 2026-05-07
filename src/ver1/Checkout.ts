@@ -8,4 +8,13 @@ import Ver1Rule from "./Ver1Rule.ts";
  * implementations by just injecting different types but if internally these should be
  * handled differently then this is the level where we can override methods from AbstractCheckout
  */
-export default class Checkout extends AbstractCheckout<string, number, Ver1Rule> {}
+export default class Checkout extends AbstractCheckout<string, number, Ver1Rule> {
+  protected rules: Ver1Rule[];
+  constructor(rules: Ver1Rule[]) {
+    super();
+    this.rules = rules;
+  }
+  async findRules(uniqueItems: string[]): Promise<Ver1Rule[]> {
+    return this.rules.filter((rule) => uniqueItems.includes(rule.sku));
+  }
+}
