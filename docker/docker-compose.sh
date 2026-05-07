@@ -60,14 +60,14 @@ if [ "${1}" = "up" ]; then
 
     ${_DOCKER} ps | grep "${PROJECT_NAME}"
 
-    CONTAINER="${PROJECT_NAME}_pgadmin"
+    # CONTAINER="${PROJECT_NAME}_pgadmin"
 
-    printf "Waiting for pgAdmin to be ready: ";
-    until [ "$(${_DOCKER} inspect -f '{{.State.Health.Status}}' ${CONTAINER})" = "healthy" ]; do
-        printf "."
-        sleep 2;
-    done;
-    echo " Ready!"
+    # printf "Waiting for pgAdmin to be ready: ";
+    # until [ "$(${_DOCKER} inspect -f '{{.State.Health.Status}}' ${CONTAINER})" = "healthy" ]; do
+    #     printf "."
+    #     sleep 2;
+    # done;
+    # echo " Ready!"
 
 cat << EOF
 

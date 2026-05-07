@@ -156,11 +156,3 @@ test('price("DABABA") should be 190', async () => {
   checkout.scan("A");
   assert.strictEqual(await checkout.getTotalPrice(), 190);
 });
-
-// test("Ver1Rule should throw if price or countActivator is not positive", () => {
-//   assert.throws(() => new Ver1Rule("A", 0, 1), /Price and countActivator must be positive/);
-//   assert.throws(() => new Ver1Rule("A", 1, 0), /Price and countActivator must be positive/);
-//   assert.throws(() => new Ver1Rule("A", -1, 1), /Price and countActivator must be positive/);
-//   assert.throws(() => new Ver1Rule("A", 1, -1), /Price and countActivator must be positive/);
-//   assert.throws(() => new Ver1Rule("A", 0, 0), /Price and countActivator must be positive/);
-// });

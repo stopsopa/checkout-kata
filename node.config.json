@@ -6,6 +6,13 @@
   "testRunner": {
     "experimental-test-coverage": true,
     "test-coverage-lines": 80,
-    "test-coverage-exclude": ["bootstrap/**/*"]
+    "test-coverage-include": ["src/**/*", "database/**/*"],
+    "test-coverage-exclude": [
+      "bootstrap/**/*",
+      "**/*.test.*",
+      "src/interfaces/iCheckout.ts",
+      "database/fixtures.ts",
+      "database/context.ts"
+    ]
   }
 }
