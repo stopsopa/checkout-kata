@@ -6,52 +6,66 @@ export interface IBaseRule {
   price: number | string;
 }
 
-export default abstract class AbstractCheckout<
-  ItemType extends string,
-  PriceType extends number,
-  RuleType extends IBaseRule,
-> implements ICheckout<ItemType, PriceType> {
+export default abstract class AbstractCheckout<ItemType, PriceType, RuleType>
+  implements ICheckout<ItemType, PriceType>
+{
   protected items: ItemType[] = [];
 
   protected abstract findRules(uniqueItems: ItemType[]): Promise<RuleType[]>;
+
+  protected abstract getItemIdentity(item: ItemType): string;
+  protected abstract getRuleIdentity(rule: RuleType): string;
+  protected abstract getRuleCountActivator(rule: RuleType): number;
+  protected abstract getRulePrice(rule: RuleType): PriceType;
+  protected abstract getZeroPrice(): PriceType;
+  protected abstract addPrices(a: PriceType, b: PriceType): PriceType;
+  protected abstract multiplyPrice(price: PriceType, times: number): PriceType;
 
   scan(item: ItemType): void {
     this.items.push(item);
   }
 
   async getTotalPrice(): Promise<PriceType> {
-    const uniqueItems = [...new Set(this.items)];
+    const uniqueItems: ItemType[] = [];
+    const seen = new Set<string>();
+    for (const item of this.items) {
+      const id = this.getItemIdentity(item);
+      if (!seen.has(id)) {
+        uniqueItems.push(item);
+        seen.add(id);
+      }
+    }
 
     const rules = await this.findRules(uniqueItems);
 
-    return this.calculateTotalPrice(this.items, rules) as PriceType;
+    return this.calculateTotalPrice(this.items, rules);
   }
 
-  protected calculateTotalPrice(items: ItemType[], rules: RuleType[]): number {
-    /**
-     * counts repeating items in the basket - by type of item
-     */
-    const counts = items.reduce(
-      (acc, sku) => {
-        acc[sku] = (acc[sku] || 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
+  protected calculateTotalPrice(items: ItemType[], rules: RuleType[]): PriceType {
+    const counts = new Map<string, number>();
 
-    let total = 0;
+    for (const item of items) {
+      const id = this.getItemIdentity(item);
+      counts.set(id, (counts.get(id) || 0) + 1);
+    }
 
-    for (const sku in counts) {
-      let count = counts[sku];
+    let total = this.getZeroPrice();
 
-      // Sort rules for this SKU by countActivator descending
-      const skuRules = rules.filter((r) => r.sku === sku).sort((a, b) => b.countActivator - a.countActivator);
+    for (const [id, count] of counts.entries()) {
+      let remainingCount = count;
+
+      const skuRules = rules
+        .filter((r) => this.getRuleIdentity(r) === id)
+        .sort((a, b) => this.getRuleCountActivator(b) - this.getRuleCountActivator(a));
 
       for (const rule of skuRules) {
-        if (count >= rule.countActivator) {
-          const times = Math.floor(count / rule.countActivator);
-          total += times * Number(rule.price);
-          count -= times * rule.countActivator;
+        const activator = this.getRuleCountActivator(rule);
+        if (remainingCount >= activator) {
+          const times = Math.floor(remainingCount / activator);
+          const price = this.getRulePrice(rule);
+          const bundlePrice = this.multiplyPrice(price, times);
+          total = this.addPrices(total, bundlePrice);
+          remainingCount -= times * activator;
         }
       }
     }
