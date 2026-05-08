@@ -39,8 +39,6 @@ And this is the way two above implementations were created.
 
 Tests drive both implementations pretty much through the same test cases against two differend implementations of AbstractCheckout.ts pulling rules from two different sources.
 
-I had an idea to implement some kind of UI for it so I've prepared server to do it later I've abandoned the idea - it was simply not requested.
-
 # Setup
 
 ```
