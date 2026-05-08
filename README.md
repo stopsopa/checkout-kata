@@ -29,7 +29,7 @@ Typescript compiler is used only for typechecking.
 
 Above makes entire codebase very clear and easy to follow. (That is at least my hope).
 
-Database is ran using podman (it should work with docker but I don't have setup to check - but I believe it should work ;) ). Wrapper shell script should handle both.
+Database is ran using podman (it should work with docker but I don't have setup to check - but I believe it should work ;) ). Wrapper shell script should handle both. (edit: it seems to be working with docker in github actions)
 
 Intilially I thought that it will be good to create universal Checkout class implementation and separate Rules finder into swappable separate class. But then once all was build I've realised it would be more readable to absorbe entire logic into [src/interfaces/AbstractCheckout.ts](src/interfaces/AbstractCheckout.ts), it's just easier to follow.
 
