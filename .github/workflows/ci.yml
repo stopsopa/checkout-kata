@@ -50,6 +50,11 @@ jobs:
       - name: Run tests
         run: /bin/bash ts.sh --test
 
+      - name: Inspect
+        run: |
+          ls -la
+          ls -la coverage
+
       - name: Cleanup
         if: always()
         run: |
